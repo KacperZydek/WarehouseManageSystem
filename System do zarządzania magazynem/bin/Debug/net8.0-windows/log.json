@@ -1,0 +1,18 @@
+[
+  {
+    "Action": "Edytowano",
+    "ID": 5,
+    "Name": "Ceg\u0142a",
+    "QuantityChange": 5,
+    "Price": 9.99,
+    "Date": "2026-04-08T19:25:48.2608706+02:00"
+  },
+  {
+    "Action": "Edytowano",
+    "ID": 5,
+    "Name": "Ceg\u0142a",
+    "QuantityChange":-5,
+    "Price": 9.99,
+    "Date": "2026-04-08T19:25:52.6085275+02:00"
+  }
+]
