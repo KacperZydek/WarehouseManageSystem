@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System_do_zarządzania_magazynem.Models;
 using Microsoft.Data.SqlClient;
 using System.Diagnostics;
+using System.Data;
 
 namespace System_do_zarządzania_magazynem.Data
 {
@@ -30,8 +31,6 @@ namespace System_do_zarządzania_magazynem.Data
                         products.Add(new Product((int)reader["Id"], reader["Name"].ToString(), (int)reader["Quantity"], (Decimal)reader["Price"]));
                     }
                 }
-
-
             }
             return products;
         }
@@ -41,10 +40,10 @@ namespace System_do_zarządzania_magazynem.Data
             {
                 conn.Open();
              
-                SqlCommand cmd = new SqlCommand("DELETE FROM Products WHERE Id=@id", conn);
-                cmd.Parameters.AddWithValue("@id", product.ID);
+                SqlCommand cmd = new SqlCommand("DeleteProduct", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", product.ID);
                 cmd.ExecuteNonQuery();
-                conn.Close();
             }
 
         }
@@ -54,11 +53,11 @@ namespace System_do_zarządzania_magazynem.Data
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO Products(Name, Quantity, Price) VALUES (@name,@quantity,@price)", conn);
-                cmd.Parameters.AddWithValue("@name", product.ProductName);
-                cmd.Parameters.AddWithValue("@quantity", product.Quantity);
-                cmd.Parameters.AddWithValue("@price", product.Price);
-
+                SqlCommand cmd = new SqlCommand("AddProduct", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Name", product.ProductName);
+                cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
+                cmd.Parameters.AddWithValue("@Price", product.Price);
                 cmd.ExecuteNonQuery();  
             }
         }
@@ -68,13 +67,13 @@ namespace System_do_zarządzania_magazynem.Data
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("UPDATE Products SET Name=@name, Quantity=@quantity, Price=@price WHERE Id=@id", conn);
-                cmd.Parameters.AddWithValue("@name", product.ProductName);
-                cmd.Parameters.AddWithValue("@quantity", product.Quantity);
-                cmd.Parameters.AddWithValue("@price", product.Price);
-                cmd.Parameters.AddWithValue("@id", product.ID);
+                SqlCommand cmd = new SqlCommand("EditProduct", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", product.ID);
+                cmd.Parameters.AddWithValue("@Name", product.ProductName);
+                cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
+                cmd.Parameters.AddWithValue("@Price", product.Price);
                 cmd.ExecuteNonQuery();
-                conn.Close();
             }
         }
     }

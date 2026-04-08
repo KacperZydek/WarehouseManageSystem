@@ -59,6 +59,9 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(150, 23);
             textBox1.TabIndex = 3;
+            textBox1.Text = "Szukaj...";
+            textBox1.Enter += TextboxSearch_Enter;
+            textBox1.Leave += TextboxSearch_Leave;
             textBox1.TextChanged += Search;
             // 
             // Form1

@@ -22,5 +22,13 @@
     "QuantityChange": 15,
     "Price": 35.99,
     "Date": "2026-04-08T23:13:35.1169922+02:00"
+  },
+  {
+    "Action": "Edytowano",
+    "ID": 1012,
+    "Name": "M\u0142ot",
+    "QuantityChange": -3,
+    "Price": 35.99,
+    "Date": "2026-04-09T00:08:32.6347718+02:00"
   }
 ]

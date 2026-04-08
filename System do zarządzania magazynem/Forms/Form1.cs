@@ -13,8 +13,6 @@ namespace System_do_zarządzania_magazynem
         {
             InitializeComponent();
         }
-        private AddProductForm addProductForm = new AddProductForm();
-
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -22,14 +20,22 @@ namespace System_do_zarządzania_magazynem
 
         private void Add(object sender, EventArgs e)
         {
-            if (addProductForm.ShowDialog() == DialogResult.OK)
+            var form = new AddProductForm();
+            if (form.ShowDialog() == DialogResult.OK)
             {
                 Product product = new Product(
-                    addProductForm.ProductName,
-                    addProductForm.Quantity,
-                    addProductForm.price
+                    form.ProductName,
+                    form.Quantity,
+                    form.price
                     );
-                repo.AddProduct(product);
+                try
+                {
+                    repo.AddProduct(product);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas dodawania: " + ex.Message);
+                }
                 int difference = product.Quantity;
                 LogAction("Dodano", product, difference);
                 LoadData();
@@ -55,7 +61,14 @@ namespace System_do_zarządzania_magazynem
                 if (result == DialogResult.Yes)
                 {
                     int difference = -product.Quantity;
-                    repo.DeleteProduct(product);
+                    try
+                    {
+                        repo.DeleteProduct(product);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Błąd podczas usuwania: " + ex.Message);
+                    }
                     LogAction("Usunięto", product, difference);
                     LoadData();
                 }
@@ -74,7 +87,6 @@ namespace System_do_zarządzania_magazynem
                     product.ProductName = form.ProductName;
                     product.Quantity = form.Quantity;
                     product.Price = form.price;
-
 
                     product.Quantity = form.Quantity;
                     int difference = product.Quantity - oldQuantity;
@@ -203,10 +215,11 @@ namespace System_do_zarządzania_magazynem
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                
+
                 LoadData();
                 return;
             }
+            if (textBox1.Text == "Szukaj...") return;
 
             var filtered = Products
                 .Where(p => p.ProductName
@@ -234,6 +247,17 @@ namespace System_do_zarządzania_magazynem
             dataGridView1.Columns["Price"].HeaderText = "Cena";
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void TextboxSearch_Enter(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox1.ForeColor = Color.Black;
+        }
+        private void TextboxSearch_Leave(object sender, EventArgs e)
+        {
+            textBox1.Text = "Szukaj...";
+            textBox1.ForeColor = Color.Gray;
         }
     }
 }
