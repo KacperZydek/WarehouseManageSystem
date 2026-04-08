@@ -98,7 +98,7 @@ namespace System_do_zarządzania_magazynem
                 MessageBox.Show("ilość musi być liczbą!");
                 return;
             }
-            if (Name == "" || Quantitytemp < 0 || tempPrice <= 0)
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || Quantitytemp < 0 || tempPrice <= 0)
             {
                 MessageBox.Show("Upewnij się że wszytko jest poprawnie uzupełnione");
                 return;
