@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("System do zarządzania magazynem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+57fa7383b92afb3fbc6fdc9a3e33ae9dfcd6de56")]
 [assembly: System.Reflection.AssemblyProductAttribute("System do zarządzania magazynem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("System do zarządzania magazynem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

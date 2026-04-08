@@ -75,7 +75,7 @@ namespace System_do_zarządzania_magazynem
                     product.Quantity = form.Quantity;
                     product.Price = form.price;
 
-                   
+
                     product.Quantity = form.Quantity;
                     int difference = product.Quantity - oldQuantity;
 
@@ -96,18 +96,7 @@ namespace System_do_zarządzania_magazynem
             AddButtons();
             AddLpColumn();
             AddRowNumbers();
-
-            dataGridView1.Columns["ID"].Visible = false;
-
-            dataGridView1.Columns["Edit"].DisplayIndex = dataGridView1.Columns.Count - 1;
-            dataGridView1.Columns["Delete"].DisplayIndex = dataGridView1.Columns.Count - 1;
-
-            dataGridView1.Columns["ProductName"].HeaderText = "Nazwa";
-            dataGridView1.Columns["Quantity"].HeaderText = "Ilość";
-            dataGridView1.Columns["Price"].HeaderText = "Cena";
-
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
+            SetupDataGridView();
         }
         private void AddLpColumn()
         {
@@ -139,7 +128,8 @@ namespace System_do_zarządzania_magazynem
                     if (Quantity <= 0)
                     {
                         cell.Style.BackColor = Color.LightCoral;
-                    } else if (Quantity > 0 && Quantity < 10)
+                    }
+                    else if (Quantity > 0 && Quantity < 10)
                     {
                         cell.Style.BackColor = Color.LightYellow;
                     }
@@ -180,28 +170,70 @@ namespace System_do_zarządzania_magazynem
             string path = "log.json";
             List<Log> logs;
             if (File.Exists(path))
-            { 
-                string json = File.ReadAllText(path); 
+            {
+                string json = File.ReadAllText(path);
                 if (!string.IsNullOrWhiteSpace(json))
-                { 
+                {
                     logs = JsonSerializer.Deserialize<List<Log>>(json) ?? new List<Log>();
-                } else { 
-                    logs = new List<Log>(); 
-                } 
-            } else { 
-                logs = new List<Log>(); 
+                }
+                else
+                {
+                    logs = new List<Log>();
+                }
             }
-            logs.Add(new Log 
-            { 
-                Action = action, 
-                ID = product.ID, 
-                Name = product.ProductName, 
-                QuantityChange = difference, 
+            else
+            {
+                logs = new List<Log>();
+            }
+            logs.Add(new Log
+            {
+                Action = action,
+                ID = product.ID,
+                Name = product.ProductName,
+                QuantityChange = difference,
                 Price = product.Price,
-                Date = DateTime.Now }); 
-            string newJson = JsonSerializer.Serialize(logs, new JsonSerializerOptions { WriteIndented = true }); 
+                Date = DateTime.Now
+            });
+            string newJson = JsonSerializer.Serialize(logs, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(path, newJson);
 
+        }
+
+        private void Search(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                
+                LoadData();
+                return;
+            }
+
+            var filtered = Products
+                .Where(p => p.ProductName
+                    .Contains(textBox1.Text, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = filtered;
+            SetupDataGridView();
+            PaintRows();
+        }
+        private void SetupDataGridView()
+        {
+            dataGridView1.Columns["ID"].Visible = false;
+
+            dataGridView1.Columns["Lp"].DisplayIndex = 0;
+            dataGridView1.Columns["ProductName"].DisplayIndex = 1;
+            dataGridView1.Columns["Quantity"].DisplayIndex = 2;
+            dataGridView1.Columns["Price"].DisplayIndex = 3;
+            dataGridView1.Columns["Edit"].DisplayIndex = 4;
+            dataGridView1.Columns["Delete"].DisplayIndex = 5;
+
+            dataGridView1.Columns["ProductName"].HeaderText = "Nazwa";
+            dataGridView1.Columns["Quantity"].HeaderText = "Ilość";
+            dataGridView1.Columns["Price"].HeaderText = "Cena";
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

@@ -1207,11 +1207,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kacpe\\source\\repos\\System do zarządzania magazynem\\System do zarządzania magazynem\\System do zarządzania magazynem.csproj",
+      "projectUniqueName": "C:\\Users\\kacpe\\IdeaProjects\\WarehouseManageSystem\\System do zarządzania magazynem\\System do zarządzania magazynem.csproj",
       "projectName": "System do zarządzania magazynem",
-      "projectPath": "C:\\Users\\kacpe\\source\\repos\\System do zarządzania magazynem\\System do zarządzania magazynem\\System do zarządzania magazynem.csproj",
+      "projectPath": "C:\\Users\\kacpe\\IdeaProjects\\WarehouseManageSystem\\System do zarządzania magazynem\\System do zarządzania magazynem.csproj",
       "packagesPath": "C:\\Users\\kacpe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kacpe\\source\\repos\\System do zarządzania magazynem\\System do zarządzania magazynem\\obj\\",
+      "outputPath": "C:\\Users\\kacpe\\IdeaProjects\\WarehouseManageSystem\\System do zarządzania magazynem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
